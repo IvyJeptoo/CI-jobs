@@ -32,7 +32,8 @@ jobs:
       - checkout
       - run:
           name: "say my name"
-          command: echo${EXE_ENV_VAR}
+          command: |
+            echo $EXE_ENV_VAR
       
 
 workflows:
