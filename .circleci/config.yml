@@ -27,21 +27,21 @@ jobs:
 
   print-name:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/base:2020.01
     steps:
       - checkout
       - run:
           name: "say my name"
           command: |
-            echo $EXE_ENV_VAR
+            echo $MY_ENV_VAR
       
 
 workflows:
   say-hello-workflow:
     jobs:
-      - welcome/run
-      - say-hello
       - print-name
-      - say-world:
-         requires:
-           - say-hello
+      # - welcome/run
+      # - say-hello
+      # - say-world:
+      #    requires:
+      #      - say-hello
