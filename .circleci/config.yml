@@ -72,18 +72,33 @@ jobs:
 
 
   # REUSABLE CODE
-  my_job:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - print_pipeline_id
+  # my_job:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - print_pipeline_id
+
+  # JOB FAILURES
+  failure_job:
+     docker:
+        - image: circleci/node:13.8.0
+     steps:
+      - run: exit 1
+
+     
+
+      - run:
+          name: Upon error
+          command: echo "ERROR!"
+          when: on_fail  
   
       
 
 workflows:
   say-hello-workflow:
     jobs:
-      - my_job
+      - failure_job
+      # - my_job
       # - save_hello_world_output
       # - print_output_file:
       #     requires:
