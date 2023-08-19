@@ -79,25 +79,40 @@ jobs:
   #     - print_pipeline_id
 
   # JOB FAILURES
-  failure_job:
-     docker:
-        - image: circleci/node:13.8.0
-     steps:
-      - run: exit 1
+  # failure_job:
+  #    docker:
+  #       - image: circleci/node:13.8.0
+  #    steps:
+  #     - run: exit 1
 
      
 
+  #     - run:
+  #         name: Upon error
+  #         command: echo "ERROR!"
+  #         when: on_fail  
+
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+
+    steps:
+      - checkout
       - run:
-          name: Upon error
-          command: echo "ERROR!"
-          when: on_fail  
+         name: "Create Cloudformation Stack"
+         command: | 
+          aws cloudformation deploy \ 
+            --template-file template.yml \ 
+            --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \ 
+            --region us-east-1
   
       
 
 workflows:
   say-hello-workflow:
     jobs:
-      - failure_job
+      - create_infrastructure
+      # - failure_job
       # - my_job
       # - save_hello_world_output
       # - print_output_file:
