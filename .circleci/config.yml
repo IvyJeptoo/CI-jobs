@@ -11,7 +11,8 @@ commands:
     steps:
       - run: echo << parameters.to >>
 orbs:
-  welcome: circleci/welcome-orb@0.4.1
+  aws-cli: circleci/aws-cli@2.0.3
+  # welcome: circleci/welcome-orb@0.4.1
 
 jobs:
   # say-hello:
